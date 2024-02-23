@@ -7,6 +7,10 @@ import capstone.claas.backend.core.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -31,6 +35,7 @@ public class ProblemServiceImpl implements ProblemService {
                 .filePaths(joinRequest.getFilePath())
                 .level(joinRequest.getLevel())
                 .num(findMaxProblemNumber( ))
+                .envPath(joinRequest.getEnvPath())
                 .build();
 
         problemRepository.save(problem);
@@ -50,5 +55,30 @@ public class ProblemServiceImpl implements ProblemService {
 
         if (problem == null)    return 1;
         return problem.getNumber() + 1;
+    }
+
+    @Override
+    public String getAddrAndPath(String path) {
+        ProcessBuilder processBuilder = new ProcessBuilder(path);
+        processBuilder.redirectErrorStream(true);
+
+        try {
+            Process process = processBuilder.start();
+            return readOutput(process.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String readOutput(InputStream inputStream) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String output = "";
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output = line;
+            }
+            return output;
+        }
     }
 }
