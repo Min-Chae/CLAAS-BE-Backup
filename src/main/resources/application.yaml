@@ -24,8 +24,8 @@ spring:
       max-lifetime: 580000
       auto-commit: true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/claas_db?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:4000/claas_db?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: claas,DB2024
 server:
-  port: 8000
+  port: 9000
