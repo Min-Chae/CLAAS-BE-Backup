@@ -11,9 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +56,7 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public String getAddrAndPath(String path) {
+    public Map<String, String> getAddrAndPath(String path) {
         ProcessBuilder processBuilder = new ProcessBuilder(path);
         processBuilder.redirectErrorStream(true);
 
@@ -71,14 +69,17 @@ public class ProblemServiceImpl implements ProblemService {
         }
     }
 
-    private String readOutput(InputStream inputStream) throws IOException {
+    private Map<String, String> readOutput(InputStream inputStream) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String output = "";
             String line;
             while ((line = reader.readLine()) != null) {
                 output = line;
             }
-            return output;
+            Map<String, String> res = new HashMap<>();
+            res.put("host", output.split(" ")[0]);
+            res.put("port", output.split(" ")[1]);
+            return res;
         }
     }
 }

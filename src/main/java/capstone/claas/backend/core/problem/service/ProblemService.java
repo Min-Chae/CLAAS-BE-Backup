@@ -14,5 +14,5 @@ public interface ProblemService {
 
     public long findMaxProblemNumber( );
 
-    public String getAddrAndPath(String path);
+    public Map<String, String> getAddrAndPath(String path);
 }
