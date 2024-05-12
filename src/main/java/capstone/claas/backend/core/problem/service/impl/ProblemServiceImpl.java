@@ -77,8 +77,8 @@ public class ProblemServiceImpl implements ProblemService {
                 output = line;
             }
             Map<String, String> res = new HashMap<>();
-            res.put("host", output.split(" ")[0]);
-            res.put("port", output.split(" ")[1]);
+            res.put("host", "168.131.151.213");
+            res.put("port", "9000");
             return res;
         }
     }
