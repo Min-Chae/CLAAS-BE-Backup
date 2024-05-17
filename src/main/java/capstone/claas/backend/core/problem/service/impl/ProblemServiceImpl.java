@@ -74,6 +74,7 @@ public class ProblemServiceImpl implements ProblemService {
             String output = "";
             String line;
             while ((line = reader.readLine()) != null) {
+                System.out.println(line);
                 output = line;
             }
             Map<String, String> res = new HashMap<>();
