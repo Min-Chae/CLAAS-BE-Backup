@@ -57,7 +57,7 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public Map<String, String> getAddrAndPath(String path) {
-        ProcessBuilder processBuilder = new ProcessBuilder(path);
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", path);
         processBuilder.redirectErrorStream(true);
 
         try {
@@ -77,8 +77,8 @@ public class ProblemServiceImpl implements ProblemService {
                 output = line;
             }
             Map<String, String> res = new HashMap<>();
-            res.put("host", "168.131.151.213");
-            res.put("port", "9000");
+            res.put("host", output.split(" ")[0]);
+            res.put("port", output.split(" ")[1]);
             return res;
         }
     }
