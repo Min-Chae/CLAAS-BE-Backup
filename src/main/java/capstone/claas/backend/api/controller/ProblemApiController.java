@@ -42,9 +42,8 @@ public class ProblemApiController {
     @GetMapping("create_dummy")
     public ResponseEntity<?> createDummyData( ) {
         List<JoinRequest> req = new ArrayList<>(List.of(
-                new JoinRequest("AP vulnerability problem", "Given environment is AP's firmware. Please type the name of vulnerable file.", "boardDataWW.php", List.of("src/main/resources/static/a.png"), Level.HARD, "/home/swlab/tmp/generate_prob_env.sh")
+                new JoinRequest("iptime", "주어진 환경은 공유기의 펌웨어 입니다. 취약한 파일의 이름을 입력하세요", "boardDataWW.php", List.of("src/main/resources/static/a.png"), Level.HARD)
         ));
-
 
         for (JoinRequest joinRequest : req) {
             problemService.join(joinRequest);
@@ -109,13 +108,5 @@ public class ProblemApiController {
 
         return ResponseEntity.ok()
                 .body(ans);
-    }
-
-    @PostMapping("/environment")
-    public ResponseEntity<?> setEnvironment(@RequestParam UUID uuid) {
-        Problem problem = problemService.findProblemByUuid(uuid);
-
-        return ResponseEntity.ok()
-                .body(problemService.getAddrAndPath(problem.getEnvPath()));
     }
 }

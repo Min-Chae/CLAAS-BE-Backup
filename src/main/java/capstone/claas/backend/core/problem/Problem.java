@@ -29,10 +29,9 @@ public class Problem extends BaseEntity {
     @CollectionTable(name = "problem_file_paths", joinColumns = @JoinColumn(name = "problem_id"))
     @Column(name = "file_path")
     private List<String> filePaths;
-    private String envPath;
 
     @Builder
-    public Problem(UUID uuid, String title, String des, String ans, List<String> filePaths, Level level, long num, String envPath) {
+    public Problem(UUID uuid, String title, String des, String ans, List<String> filePaths, Level level, long num) {
         this.uuid = uuid;
         this.title = title;
         this.description = des;
@@ -40,6 +39,5 @@ public class Problem extends BaseEntity {
         this.filePaths = filePaths;
         this.level = level;
         this.number = num;
-        this.envPath = envPath;
     }
 }

@@ -14,5 +14,4 @@ public class JoinRequest {
     private String answer;
     private List<String> filePath;
     private Level level;
-    private String envPath;
 }
